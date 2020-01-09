@@ -1,0 +1,302 @@
+{
+   "data" : {
+      "type" : "artists",
+      "links" : {
+         "self" : {
+            "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12?resourceVersion=id%3A65582"
+         }
+      },
+      "attributes" : {
+         "firstname" : "Robert",
+         "title" : "Robert Motherwell",
+         "birth_year" : "1915",
+         "gender" : "male",
+         "birth_place" : "Aberdeen, Washington, United States",
+         "display_date" : "born Aberdeen, WA 1915-died Provincetown, MA 1991",
+         "wikidata_id" : "Q165275",
+         "ulan_id" : "500016415",
+         "name_suffix" : null,
+         "library_of_congress_id" : "n50006652",
+         "death_year" : "1991",
+         "artist_biography" : {
+            "value" : "<P>Robert Motherwell was born in Aberdeen, Washington, in 1915. He studied philosophy at Stanford University, California, and received his BA in 1937. Later that year he studied painting briefly at the California School of Fine Arts in San Francisco before undertaking graduate work in philosophy at Harvard University from 1937 to 1938. While spending a year in France studying French literature and painting, Motherwell had his first solo exhibition at the Galerie Duncan. He returned to the United States in 1940; during that decade Motherwell emerged as a leading Abstract Expressionist whose work encompassed painting, printmaking, and collage, in addition to writing. In 1949 Motherwell began his most famous series, \"Elegies to the Spanish Republic,\" which includes more than one hundred oil paintings and numerous sketches and drawings.</P>\r<P><I>National Museum of American Art</I> (CD-ROM) (New York and Washington D.C.: MacMillan Digital in cooperation with the National Museum of American Art, 1996)</P>",
+            "processed" : "<P>Robert Motherwell was born in Aberdeen, Washington, in 1915. He studied philosophy at Stanford University, California, and received his BA in 1937. Later that year he studied painting briefly at the California School of Fine Arts in San Francisco before undertaking graduate work in philosophy at Harvard University from 1937 to 1938. While spending a year in France studying French literature and painting, Motherwell had his first solo exhibition at the Galerie Duncan. He returned to the United States in 1940; during that decade Motherwell emerged as a leading Abstract Expressionist whose work encompassed painting, printmaking, and collage, in addition to writing. In 1949 Motherwell began his most famous series, \"Elegies to the Spanish Republic,\" which includes more than one hundred oil paintings and numerous sketches and drawings.</P>\n<P><I>National Museum of American Art</I> (CD-ROM) (New York and Washington D.C.: MacMillan Digital in cooperation with the National Museum of American Art, 1996)</P>",
+            "format" : "full_html",
+            "summary" : ""
+         },
+         "name_prefix" : null,
+         "date_of_birth" : "1915-01-24",
+         "path" : {
+            "alias" : "/artist/robert-motherwell-3437",
+            "pid" : 1645403,
+            "langcode" : "en"
+         },
+         "changed" : "2019-11-26T10:44:02-0500",
+         "alphabetical_name" : "Motherwell, Robert",
+         "aka_names" : [
+            "Robert Burns Motherwell III"
+         ],
+         "death_place" : "Provincetown, Massachusetts, United States",
+         "lastname" : "Motherwell",
+         "last_known_place" : null,
+         "name_title" : null,
+         "date_of_death" : "1991-07-16",
+         "viaf_id" : "100187143",
+         "luce_artist_biography" : {
+            "value" : "<p>Robert Motherwell loved to paint as a boy and won an art scholarship when he was only eleven. His father encouraged him to finish school, however, and promised him fifty dollars a week indefinitely if he would get an advanced degree as an “insurance policy” before devoting his life to painting. Motherwell became friends with many European surrealists in New York and was an active spokesman and writer in support of abstract art. In 1943, Peggy Guggenheim invited him to contribute to a show of collages that included work by Pablo Picasso, Joan Miró, and Georges Braque. He had never worked in collage before, but soon discovered that it was a “joy” and returned to it frequently throughout his career. Motherwell was one of the first American artists to experiment with the surrealist automatic approach, by brushing, splashing, and pouring paint onto the canvas without much “critical intervention or editing.” (1977 interview by Barbaralee Diamonstein, in Arnason, <i>Robert Motherwell</i>, 1982)</p>",
+            "processed" : "<p>Robert Motherwell loved to paint as a boy and won an art scholarship when he was only eleven. His father encouraged him to finish school, however, and promised him fifty dollars a week indefinitely if he would get an advanced degree as an “insurance policy” before devoting his life to painting. Motherwell became friends with many European surrealists in New York and was an active spokesman and writer in support of abstract art. In 1943, Peggy Guggenheim invited him to contribute to a show of collages that included work by Pablo Picasso, Joan Miró, and Georges Braque. He had never worked in collage before, but soon discovered that it was a “joy” and returned to it frequently throughout his career. Motherwell was one of the first American artists to experiment with the surrealist automatic approach, by brushing, splashing, and pouring paint onto the canvas without much “critical intervention or editing.” (1977 interview by Barbaralee Diamonstein, in Arnason, <i>Robert Motherwell</i>, 1982)</p>",
+            "format" : "full_html",
+            "summary" : ""
+         },
+         "associated_places" : [
+            "New York, New York, United States",
+            "Greenwich, Connecticut, United States"
+         ]
+      },
+      "relationships" : {
+         "exhibition_codes" : {
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/exhibition_codes?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/exhibition_codes?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : []
+         },
+         "birth_state" : {
+            "links" : {
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/birth_state?resourceVersion=id%3A65582"
+               },
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/birth_state?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : {
+               "id" : "c2a69ce6-3763-44fa-917e-7d634acadd35",
+               "type" : "us_states"
+            }
+         },
+         "artwork_bio_images" : {
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/artwork_bio_images?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/artwork_bio_images?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : []
+         },
+         "artworks" : {
+            "links" : {
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/artworks?resourceVersion=id%3A65582"
+               },
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/artworks?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : [
+               {
+                  "type" : "artworks",
+                  "id" : "f92ba5ce-d232-4359-89ae-53f2c5051a9c"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "988fed61-cbc5-4115-98df-9b577485a474"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "694d0ff7-564a-4ed5-aa80-4642993a3f2b"
+               },
+               {
+                  "id" : "54e569b7-29fa-43f7-bd4f-b2e8dd2eb8ad",
+                  "type" : "artworks"
+               },
+               {
+                  "id" : "ccc973c4-6eea-4a97-a957-57c0bb90c440",
+                  "type" : "artworks"
+               },
+               {
+                  "id" : "daf0d24a-e921-44e5-968e-92d717a0cfb8",
+                  "type" : "artworks"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "68b57884-a2a6-4927-858a-122e317cfaac"
+               },
+               {
+                  "id" : "f6d27b0a-f9a0-48e1-b20a-5b1184dd4466",
+                  "type" : "artworks"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "79e96b96-ba4d-4f4a-b1ab-db5de42994e3"
+               },
+               {
+                  "id" : "e237e4ba-7345-4b6a-aa4c-dfc05c16291f",
+                  "type" : "artworks"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "374f8b2e-fe6e-4183-9c5f-6bf176a03ee4"
+               },
+               {
+                  "id" : "d912f007-d3b6-426a-8d01-f7938cc9d1e5",
+                  "type" : "artworks"
+               },
+               {
+                  "id" : "c0984fd7-d793-4793-85a8-155638b7ac38",
+                  "type" : "artworks"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "becd08c1-d777-4878-9082-604672a99aac"
+               },
+               {
+                  "type" : "artworks",
+                  "id" : "01838e41-7189-4094-a7f4-d938449b5401"
+               }
+            ]
+         },
+         "nationalities" : {
+            "links" : {
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/nationalities?resourceVersion=id%3A65582"
+               },
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/nationalities?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : {
+               "type" : "nationalities",
+               "id" : "d0245a03-9f85-4050-a80f-4a444aee1e10"
+            }
+         },
+         "death_state" : {
+            "data" : {
+               "type" : "us_states",
+               "id" : "204a8dc9-2eaf-410f-99f3-60a169546dd1"
+            },
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/death_state?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/death_state?resourceVersion=id%3A65582"
+               }
+            }
+         },
+         "us_states" : {
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/us_states?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/us_states?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : [
+               {
+                  "id" : "cef3c250-8719-40ea-8572-7e921a5f3a8c",
+                  "type" : "us_states"
+               },
+               {
+                  "id" : "6fa65d3f-4281-4e8e-a0cd-7761a2c9773a",
+                  "type" : "us_states"
+               }
+            ]
+         },
+         "default_image" : {
+            "data" : {
+               "id" : "604af7e2-306e-4725-b9ae-3d0530879163",
+               "type" : "files",
+               "meta" : {
+                  "title" : null,
+                  "width" : 342,
+                  "alt" : null,
+                  "height" : 416
+               }
+            },
+            "links" : {
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/default_image?resourceVersion=id%3A65582"
+               },
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/default_image?resourceVersion=id%3A65582"
+               }
+            }
+         },
+         "videos" : {
+            "data" : [],
+            "links" : {
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/videos?resourceVersion=id%3A65582"
+               },
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/videos?resourceVersion=id%3A65582"
+               }
+            }
+         },
+         "related_books" : {
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/related_books?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/related_books?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : [
+               {
+                  "type" : "books",
+                  "id" : "70ff249f-88cf-4050-b18d-c18b48ca3f9e"
+               }
+            ]
+         },
+         "bio_images" : {
+            "links" : {
+               "self" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/relationships/bio_images?resourceVersion=id%3A65582"
+               },
+               "related" : {
+                  "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12/bio_images?resourceVersion=id%3A65582"
+               }
+            },
+            "data" : [
+               {
+                  "type" : "bio_images",
+                  "id" : "288306ee-412e-425d-ab16-748ed7b3c78f"
+               },
+               {
+                  "id" : "805b2586-589e-447e-adf5-6b23049346df",
+                  "type" : "bio_images"
+               },
+               {
+                  "type" : "bio_images",
+                  "id" : "b63f4a78-2dad-48cc-910e-256aa08ab09f"
+               }
+            ]
+         }
+      },
+      "id" : "83c7b704-55e2-4c32-a682-16f1df6ceb12"
+   },
+   "jsonapi" : {
+      "meta" : {
+         "links" : {
+            "self" : {
+               "href" : "http://jsonapi.org/format/1.0/"
+            }
+         }
+      },
+      "version" : "1.0"
+   },
+   "links" : {
+      "self" : {
+         "href" : "https://api.si.edu/saam/v1/artists/83c7b704-55e2-4c32-a682-16f1df6ceb12"
+      }
+   }
+}
