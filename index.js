@@ -36,14 +36,14 @@ function formatQueryParams(params) {
 }
 
 /* ------------------------------------------------------------- */
-function displayResults(typeArtInfo, typeQuery, responseJson) {
+function displayResults(typeArtInfo, typeQuery, responseJson, imgData) {
 
   const values = Object.values(responseJson);
   let totalObjs = Object.keys(responseJson).length;
 
 
   /* This section is only for debug purposes */
-  console.log("responseJson: " + responseJson);
+  console.log("responseJson for the image: " + responseJson, imgData.data.attributes.uri.url);
   console.log("num of keys inside responseJson = " + totalObjs);
 
   let arr = Object.keys(responseJson);
@@ -62,6 +62,7 @@ function displayResults(typeArtInfo, typeQuery, responseJson) {
 
   /* Create associated places string */
   const places_arr = responseJson.data.attributes['associated_places'];
+  console.log("places_arr = " + places_arr);
   let places_str = '';
   for (let i = 0; i < places_arr.length; i++) {
     places_str = places_str.concat(places_arr[i], "; ");
@@ -89,13 +90,17 @@ function displayResults(typeArtInfo, typeQuery, responseJson) {
   bio_image_url = url3 + "&api_key=" + apiKey;
   console.log("bio_image_url = " + bio_image_url);
 
+  /* TODO - DELETE ME: */
+  /* ID: ${responseJson.data['id']} */
+
   /* Create html to push to the dom */
   $('#results-list').append(
-    `<li>
+    `
     <h2>Artist Information</h2>
-    </li>
     <li>
-    <p><b>IMAGE URL:</b> <a href="${default_image_url}" target="_blank">${default_image_url}</a></p>
+    <a target="_blank" href="${imgData.data.attributes.uri.url}">
+      <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
+    </a>
     <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
     <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
     <p><b>BIRTH PLACE:</b> ${responseJson.data.attributes['birth_place']}</p>
@@ -104,7 +109,7 @@ function displayResults(typeArtInfo, typeQuery, responseJson) {
     <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>
     <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
     <p><b>ADDITIONAL DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
-    <p><b>CHANGED:</b> ${responseJson.data.attributes['changed']}</p>
+    <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
     </li>
     `
   );
@@ -132,8 +137,12 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
   const queryString = formatQueryParams(params);
   const searchURL = formatURL(typeArtInfo);
   /*const url = searchURL + '?' + queryString;*/
-  const url = searchURL + "/83c7b704-55e2-4c32-a682-16f1df6ceb12" + '?' + queryString ;
+
+  const id = "/83c7b704-55e2-4c32-a682-16f1df6ceb12";
+  /*const id = "/a90a4637-92c5-4436-8dea-32ca84706b8b";*/
+  const url = searchURL + id + "?" + queryString ;
   console.log("url = " + url);
+
 
   fetch(url)
     .then(response => {
@@ -142,7 +151,18 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(typeArtInfo, typeQuery, responseJson))
+    .then(responseJson => {
+      let url2 = responseJson.data.relationships['default_image'].links['related'].href;
+      let default_image_url = url2 + "&api_key=" + apiKey;
+
+      fetch(default_image_url)
+      .then(res => res.json())
+      .then(imgData => { 
+        /*console.log("imgData is " + imgData);*/
+        displayResults(typeArtInfo, typeQuery, responseJson, imgData);
+      })
+    
+    })
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
