@@ -37,25 +37,27 @@ function formatQueryParams(params) {
 
 /* ------------------------------------------------------------- */
 function displayResults(typeArtInfo, typeQuery, responseJson, imgData) {
+/*function displayResults(typeArtInfo, typeQuery, responseJson, responses) { */
+
+  /*const response_default_image_url = responses[0];
+  const response_video_url = responses[1];
+
+  console.log("DEBUG: response_default_image_url = " + response_default_image_url + "<-------------------------");
+  console.log("DEBUG: response_video_url = " + response_video_url + "<-------------------------");*/
 
   const values = Object.values(responseJson);
   let totalObjs = Object.keys(responseJson).length;
 
-
-  /* This section is only for debug purposes */
-  console.log("responseJson for the image: " + responseJson, imgData.data.attributes.uri.url);
-  console.log("num of keys inside responseJson = " + totalObjs);
-
-  let arr = Object.keys(responseJson);
-  console.log("Looping through responseJson <-------------------------");
+  /*let arr = Object.keys(responseJson);
+  console.log("Looping through responseJson ");
   Object.keys(responseJson).forEach(key => console.log(
     `${key}: ${responseJson[key]}`
   ));
 
-  console.log("Looping through responseJson.data <-------------------------");
+  console.log("Looping through responseJson.data");
   Object.keys(responseJson.data).forEach(key => console.log(
     `${key}: ${responseJson.data[key]}`
-  ));
+  )); */
 
   /* Clear out the results area of the ui */
   $('#results-list').empty();
@@ -90,17 +92,19 @@ function displayResults(typeArtInfo, typeQuery, responseJson, imgData) {
   bio_image_url = url3 + "&api_key=" + apiKey;
   console.log("bio_image_url = " + bio_image_url);
 
-  /* TODO - DELETE ME: */
-  /* ID: ${responseJson.data['id']} */
+  /* Print url for default img */
+  console.log("responseJson for the image: " + responseJson, imgData.data.attributes.uri.url);
+
+  /* Print url for video */
+  /*console.log("responseJson for video: " + responseJson, imgData.data.attributes.uri.url);*/
 
   /* Create html to push to the dom */
   $('#results-list').append(
     `
-    <h2>Artist Information</h2>
     <li>
-    <a target="_blank" href="${imgData.data.attributes.uri.url}">
-      <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
-    </a>
+      <a target="_blank" href="${imgData.data.attributes.uri.url}">
+        <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
+      </a> 
     <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
     <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
     <p><b>BIRTH PLACE:</b> ${responseJson.data.attributes['birth_place']}</p>
@@ -118,13 +122,24 @@ function displayResults(typeArtInfo, typeQuery, responseJson, imgData) {
   $('#results').removeClass('hidden');
 }
 
-/* ------------------------------------------------------------- */
-function getAllArtists() {
-
+/* get multiple urls at once */
+async function getAllResponses(urls) {
+  console.log("Start getAllResponses function");
+  try {
+    let data = await Promise.all (
+      urls.map(
+        fetch(url).then(
+          (response) => response.json()
+            )));
+    return (data);
+  } catch (error) {
+    console.log("ERROR: " + error);
+    $('#js-error-message').text(`Something went wrong: ${error.message}`);
+  }
 }
 
-/* ------------------------------------------------------------- */
 function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
+
   //typeArtInfo: artworks, artists
   //typeQuery: random, specific
   //TODO: queryMax for non-random field
@@ -134,16 +149,16 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
     api_key: apiKey,
   };
 
+  /* create string that can be used for randomizing the artist */
   const queryString = formatQueryParams(params);
   const searchURL = formatURL(typeArtInfo);
   /*const url = searchURL + '?' + queryString;*/
 
+  /* use a single artist temporarily */
   const id = "/83c7b704-55e2-4c32-a682-16f1df6ceb12";
   /*const id = "/a90a4637-92c5-4436-8dea-32ca84706b8b";*/
   const url = searchURL + id + "?" + queryString ;
-  console.log("url = " + url);
-
-
+  console.log("artist url = " + url);
   fetch(url)
     .then(response => {
       if (response.ok) {
@@ -152,13 +167,15 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
       throw new Error(response.statusText);
     })
     .then(responseJson => {
-      let url2 = responseJson.data.relationships['default_image'].links['related'].href;
-      let default_image_url = url2 + "&api_key=" + apiKey;
+      let url1 = responseJson.data.relationships['default_image'].links['related'].href;
+      let default_image_url = url1 + "&api_key=" + apiKey;
+
+      let url2 = responseJson.data.relationships['videos'].links['related'].href;
+      let video_url = url2 + "&api_key=" + apiKey;
 
       fetch(default_image_url)
       .then(res => res.json())
       .then(imgData => { 
-        /*console.log("imgData is " + imgData);*/
         displayResults(typeArtInfo, typeQuery, responseJson, imgData);
       })
     
@@ -166,7 +183,7 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
-}
+} 
 
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist', function (event) {
@@ -175,26 +192,10 @@ function listenRandomArtistButton() {
   });
 }
 
-function listenRandomArtButton() {
-  $('form').on('click', '#random-art', function (event) {
-    console.log("You clicked the Random Art button");
-    getArtInfo("artworks");
-  });
-}
-
 /* ------------------------------------------------------------- */
 function watchForm() {
   //listen for the events
   listenRandomArtistButton();
-  listenRandomArtButton();
-
-  /* Keeping this in case I add non-random fields */
-  /*$('form').submit(event => {
-    event.preventDefault();
-    const getArtist = $('#random-artist').val();
-    const getArt = $('#random-art').val();
-    getArtInfo(getArtist, getArt);
-  });*/
 }
 
 $(watchForm);
