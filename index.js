@@ -71,29 +71,25 @@ function displayResults(typeArtInfo, typeQuery, responseJson, imgData) {
   }
 
   /* Get bio image url using artwork_bio_images */
-  let url = responseJson.data.relationships['artwork_bio_images'].links['self'].href;
-  /*let url = responseJson.data.relationships['artwork_bio_images'].links['related'].href;*/
-  console.log("url = " + url);
+  let url = responseJson.data.relationships['artwork_bio_images'].links['related'].href;
   let artwork_bio_image_url;
   artwork_bio_image_url = url + "&api_key=" + apiKey;
   console.log("artwork_bio_image_url = " + artwork_bio_image_url);
 
   /* Or get bio image url using default_image */
   let url2 = responseJson.data.relationships['default_image'].links['related'].href;
-  console.log("url2 = " + url2);
   let default_image_url;
   default_image_url = url2 + "&api_key=" + apiKey;
   console.log("default_image_url = " + default_image_url);
 
   /* Or get bio image url using bio_images */
-  let url3 = responseJson.data.relationships['bio_images'].links['self'].href;
-  console.log("url3 = " + url3);
+  let url3 = responseJson.data.relationships['bio_images'].links['related'].href;
   let bio_image_url;
   bio_image_url = url3 + "&api_key=" + apiKey;
   console.log("bio_image_url = " + bio_image_url);
 
   /* Print url for default img */
-  console.log("responseJson for the image: " + responseJson, imgData.data.attributes.uri.url);
+  console.log("responseJson for the default_image: " + responseJson, imgData.data.attributes.uri.url);
 
   /* Print url for video */
   /*console.log("responseJson for video: " + responseJson, imgData.data.attributes.uri.url);*/
