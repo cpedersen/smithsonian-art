@@ -138,7 +138,7 @@ async function getAllResponses(urls) {
   }
 }
 
-function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
+function getArtInfo(typeArtInfo="artists", typeQuery="random") {
 
   //typeArtInfo: artworks, artists
   //typeQuery: random, specific
@@ -187,7 +187,6 @@ function getArtInfo(typeArtInfo="artworks", typeQuery="random") {
 
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist', function (event) {
-    console.log("You clicked the Random Artist button");
     getArtInfo("artists");
   });
 }
