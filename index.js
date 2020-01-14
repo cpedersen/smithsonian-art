@@ -186,8 +186,6 @@ function displayArtistResults(responseJson, imgData) {
     console.log("Cannot append biography data: " + error);
   }
 
-
-
   /* Display the results section */
   $('#results').removeClass('hidden');
 }
@@ -205,7 +203,6 @@ function getArtworkInfo(artwork_arr) {
   const searchURL = formatURL("artworks");
 
   /* Print all artwork info for this artist */
-  //YOUAREHERE
   for (let i = 0; i < artwork_arr.length; i++) {
     try {
       console.log(artwork_arr[i]);
@@ -246,19 +243,23 @@ function getArtistInfo() {
   try {
     const id_random = Math.floor(Math.random() * artist_id_arr.length);
     const id = artist_id_arr[id_random];
-    const url = searchURL + "/" + id + "?" + queryString ;
+    console.log("artist id = " + id);
+    const url = searchURL + "/" + id + "?" + queryString;
     console.log("artist url = " + url);
   }
   catch(error) {
     console.log("Could not get artist info: " + error);
   }
 
+  console.log("Beginning fetch");
   /* Fetch the artist url and capture the response */
+  /* YOUAREHERE */
   fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
       }
+      console.log("Server is not responding with ok");
       throw new Error(response.statusText);
     })
     .then(responseJson => {
@@ -288,15 +289,17 @@ function listenRandomArtistButton() {
 /* ------------------------------------------------------------- */
 function watchForm() {
   //listen for event
-  $('#random-artwork-btn').hide();
+  $('#js-error-message').hide();
   listenRandomArtistButton();
 }
 
 $(watchForm);
 
 // Bugs: 
-// 1. If you select the Random Artist button many times, inevitably
+// 1. Code was working well except for Issue #2. Then I began 
+//    getting "url is not defined" for the artist fetch. Not sure
+//    if I broke something, or if the server is down.
+// 2. If you select the Random Artist button many times, inevitably
 //    you will get an error: "Something went wrong: Unexpected token T
 //    in JSON at position 0". At the console, there is a 500 Service
-//    unavailable error. I don't know what's causing this. I added
-//    try/catches, but they haven't caught the error.
+//    unavailable error. I don't know what's causing this. 
