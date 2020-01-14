@@ -92,24 +92,42 @@ function formatQueryParams(params) {
 
 /* ------------------------------------------------------------- */
 /* Display all artwork for the random artist */
-function displayArtworkResults(artworkData) {
-  /* Append artwork info for the artist */
-  try {
-    $('#results-list').append(
-      `
-      <li>
-      <p><b>ARTWORK TITLE:</b> ${artworkData.data.attributes['title']}</p>
-      <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
-      <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
-      <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-      <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
-      <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
-      </li>
-      `
-    );
-  } 
-  catch(error) {
-    console.log("Cannot append artwork data: " + error);
+function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
+
+  /* Append artwork info for the artist, whether or not the url is working */
+
+  /* Put items in the correct order for display */
+
+  if (typeof(artworkData) != "object") {
+    if (artworkData === "error") {
+      $('#results-list').append(
+        `
+        <li>
+        <p><b>ARTWORK ${artworkNum} OF ${artworkTotal}</b></p>
+        <p id="artwork-indent"><b>Artwork information is unavailable</b></p>
+        </li>
+        `
+      );
+    }
+  } else {
+    try {
+      $('#results-list').append(
+        `
+        <li>
+        <p><b>ARTWORK ${artworkNum} OF ${artworkTotal}</b></p>
+        <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+        <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
+        <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
+        <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+        <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+        <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
+        </li>
+        `
+      );
+    } 
+    catch(error) {
+      console.log("Cannot append artwork data: " + error);
+    }
   }
   console.log("Random Artist display completed");
 }
@@ -211,15 +229,17 @@ function getArtworkInfo(artwork_arr) {
   for (let i = 0; i < artwork_arr.length; i++) {
     let id = artwork_arr[i].id;
     let artwork_url = searchURL + "/" + id + "?" + queryString ;
-    console.log("artwork url = " + artwork_url);
-    
+    console.log(`artwork url ${i+1} of ${artwork_arr.length} = ` + artwork_url);
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => { 
-        displayArtworkResults(artworkData);
+        displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+      $('#js-error-message').show();
+      /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
+      $('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);
+      displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
     }); 
   }
 }
@@ -262,6 +282,7 @@ function getArtistInfo() {
       })
     })
     .catch(err => {
+      $('#js-error-message').show();
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
 } 
@@ -277,7 +298,7 @@ function listenRandomArtistButton() {
 /* ------------------------------------------------------------- */
 function watchForm() {
   //listen for event
-  /*$('#js-error-message').hide();*/
+  $('#js-error-message').hide();
   listenRandomArtistButton();
 }
 
@@ -289,4 +310,6 @@ $(watchForm);
 //    in JSON at position 0". At the console, there is a 500 Service
 //    unavailable error. I don't know what's causing this. I always
 //    see it with 'Henry Inman' (d52d374c-6c2a-4e8b-8265-be383ed6c0c2).
+//    Here's a url to his artwork that returns the error: 
+//    https://api.si.edu/saam/v1/artworks/78703698-0cce-4302-b3ae-e9f62994f324?api_key=9eCw7spZyYcnwSpdSl6hnfPcxiOw1JaFEgNAQV3u
 

@@ -75,6 +75,10 @@ li, img {
   color: red;
 }
 
+.wait-message {
+  color: blue;
+}
+
 .hidden {
   display: none;
 }
