@@ -263,6 +263,7 @@ function getArtistInfo() {
 /* ------------------------------------------------------------- */
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
+    console.log("Random Artist button selected");
     getArtistInfo();
   });
 }
