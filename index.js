@@ -163,11 +163,10 @@ function displayArtistResults(responseJson, imgData) {
   catch(error) {
     console.log("Cannot append biography data");
   }
-  
+
   try {
     $('#results-list').append(
     `<li>
-      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
       <p><b>ADDITIONAL DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
     </li>`
     );
