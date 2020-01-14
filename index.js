@@ -78,7 +78,7 @@ function formatURL(typeArtInfo) {
   } else {
     console.log("ERROR: Type not found");
   }
-  console.log("searchURL = " + searchURL);
+  /*console.log("searchURL = " + searchURL);*/
   return searchURL;
 }
 
@@ -126,7 +126,7 @@ function displayArtistResults(responseJson, imgData) {
   
   /* Create associated places string */
   const places_arr = responseJson.data.attributes['associated_places'];
-  console.log("places_arr = " + places_arr);
+  /*console.log("places_arr = " + places_arr);*/
   let places_str = '';
   for (let i = 0; i < places_arr.length; i++) {
     places_str = places_str.concat(places_arr[i], "; ");
@@ -137,7 +137,7 @@ function displayArtistResults(responseJson, imgData) {
   }
 
   /* Print url for default img */
-  console.log("responseJson for the default_image: " + responseJson, imgData.data.attributes.uri.url);
+  console.log("image url = " + imgData.data.attributes.uri.url);
 
   /* Append artist info */
   try {
@@ -171,18 +171,18 @@ function displayArtistResults(responseJson, imgData) {
     );
   } 
   catch(error) {
-    console.log("Cannot append biography data: " + error);
+    console.log("Cannot append artist biography data: " + error);
   }
 
   try {
     $('#results-list').append(
     `<li>
-      <p><b>ARTIST DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
+      <p><b>ARTIST BACKGROUND:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
     </li>`
     );
   } 
   catch(error) {
-    console.log("Cannot append biography data: " + error);
+    console.log("Cannot append luce artist biography data: " + error);
   }
 
   /* Display the results section */
@@ -203,16 +203,13 @@ function getArtworkInfo(artwork_arr) {
 
   /* Print all artwork info for this artist */
   for (let i = 0; i < artwork_arr.length; i++) {
-    console.log(artwork_arr[i]);
     let id = artwork_arr[i].id;
-    console.log("artwork id = " + id);
     let artwork_url = searchURL + "/" + id + "?" + queryString ;
-    console.log("artwork_url = " + artwork_url);
+    console.log("artwork url = " + artwork_url);
     
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => { 
-        console.log("artworkData = " + artworkData);
         displayArtworkResults(artworkData);
     })
     .catch(err => {
@@ -236,7 +233,6 @@ function getArtistInfo() {
   /* Randomly find an artist */
   const id_random = Math.floor(Math.random() * artist_id_arr.length);
   const id = artist_id_arr[id_random];
-  console.log("artist id = " + id);
   const url = searchURL + "/" + id + "?" + queryString;
   console.log("artist url = " + url);
 
