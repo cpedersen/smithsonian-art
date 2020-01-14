@@ -94,18 +94,24 @@ function formatQueryParams(params) {
 /* Display all artwork for the random artist */
 function displayArtworkResults(artworkData) {
   /* Append artwork info for the artist */
-  $('#results-list').append(
-    `
-    <li>
-    <p><b>ARTWORK TITLE:</b> ${artworkData.data.attributes['title']}</p>
-    <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
-    <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
-    <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-    <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
-    <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
-    </li>
-    `
-  );
+
+  try {
+    $('#results-list').append(
+      `
+      <li>
+      <p><b>ARTWORK TITLE:</b> ${artworkData.data.attributes['title']}</p>
+      <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
+      <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
+      <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+      <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+      <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
+      </li>
+      `
+    );
+  } 
+  catch(error) {
+    console.log("Cannot append artwork data: " + error);
+  }
 }
 
 /* ------------------------------------------------------------- */
@@ -135,22 +141,27 @@ function displayArtistResults(responseJson, imgData) {
   console.log("responseJson for the default_image: " + responseJson, imgData.data.attributes.uri.url);
 
   /* Append artist info */
-  $('#results-list').append(
-    `
-    <li>
-      <a target="_blank" href="${imgData.data.attributes.uri.url}">
-        <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
-      </a> 
-    <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
-    <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
-    <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
-    <p><b>BIRTH PLACE:</b> ${responseJson.data.attributes['birth_place']}</p>
-    <p><b>DATE OF DEATH:</b> ${responseJson.data.attributes['date_of_death']}</p>
-    <p><b>PLACE OF DEATH:</b> ${responseJson.data.attributes['death_place']}</p>
-    <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>   
-    </li>
-    `
-  );
+  try {
+    $('#results-list').append(
+      `
+      <li>
+        <a target="_blank" href="${imgData.data.attributes.uri.url}">
+          <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
+        </a> 
+      <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
+      <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
+      <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
+      <p><b>BIRTH PLACE:</b> ${responseJson.data.attributes['birth_place']}</p>
+      <p><b>DATE OF DEATH:</b> ${responseJson.data.attributes['date_of_death']}</p>
+      <p><b>PLACE OF DEATH:</b> ${responseJson.data.attributes['death_place']}</p>
+      <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>   
+      </li>
+      `
+      );
+  }
+  catch(error) {
+    console.log("Cannot append artist biography data: " + error);
+  }
 
   /* Also append biography if it's available */
   try {
@@ -161,18 +172,18 @@ function displayArtistResults(responseJson, imgData) {
     );
   } 
   catch(error) {
-    console.log("Cannot append biography data");
+    console.log("Cannot append biography data: " + error);
   }
 
   try {
     $('#results-list').append(
     `<li>
-      <p><b>ADDITIONAL DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
+      <p><b>ARTIST DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
     </li>`
     );
   } 
   catch(error) {
-    console.log("Cannot append biography data");
+    console.log("Cannot append biography data: " + error);
   }
 
 
@@ -194,12 +205,19 @@ function getArtworkInfo(artwork_arr) {
   const searchURL = formatURL("artworks");
 
   /* Print all artwork info for this artist */
+  //YOUAREHERE
   for (let i = 0; i < artwork_arr.length; i++) {
-    console.log(artwork_arr[i]);
-    let id = artwork_arr[i].id;
-    console.log("artwork id = " + id);
-    let artwork_url = searchURL + "/" + id + "?" + queryString ;
-    console.log("artwork_url = " + artwork_url);
+    try {
+      console.log(artwork_arr[i]);
+      let id = artwork_arr[i].id;
+      console.log("artwork id = " + id);
+      let artwork_url = searchURL + "/" + id + "?" + queryString ;
+      console.log("artwork_url = " + artwork_url);
+    } 
+    catch(error) {
+      console.log("Cannot get artwork info: " + error);
+    }
+
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => { 
@@ -225,10 +243,15 @@ function getArtistInfo() {
   const searchURL = formatURL("artists");
 
   /* Randomly find an artist */
-  const id_random = Math.floor(Math.random() * artist_id_arr.length);
-  const id = artist_id_arr[id_random];
-  const url = searchURL + "/" + id + "?" + queryString ;
-  console.log("artist url = " + url);
+  try {
+    const id_random = Math.floor(Math.random() * artist_id_arr.length);
+    const id = artist_id_arr[id_random];
+    const url = searchURL + "/" + id + "?" + queryString ;
+    console.log("artist url = " + url);
+  }
+  catch(error) {
+    console.log("Could not get artist info: " + error);
+  }
 
   /* Fetch the artist url and capture the response */
   fetch(url)
@@ -270,3 +293,10 @@ function watchForm() {
 }
 
 $(watchForm);
+
+// Bugs: 
+// 1. If you select the Random Artist button many times, inevitably
+//    you will get an error: "Something went wrong: Unexpected token T
+//    in JSON at position 0". At the console, there is a 500 Service
+//    unavailable error. I don't know what's causing this. I added
+//    try/catches, but they haven't caught the error.
