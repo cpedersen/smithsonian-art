@@ -94,7 +94,6 @@ function formatQueryParams(params) {
 /* Display all artwork for the random artist */
 function displayArtworkResults(artworkData) {
   /* Append artwork info for the artist */
-
   try {
     $('#results-list').append(
       `
@@ -204,17 +203,12 @@ function getArtworkInfo(artwork_arr) {
 
   /* Print all artwork info for this artist */
   for (let i = 0; i < artwork_arr.length; i++) {
-    try {
-      console.log(artwork_arr[i]);
-      let id = artwork_arr[i].id;
-      console.log("artwork id = " + id);
-      let artwork_url = searchURL + "/" + id + "?" + queryString ;
-      console.log("artwork_url = " + artwork_url);
-    } 
-    catch(error) {
-      console.log("Cannot get artwork info: " + error);
-    }
-
+    console.log(artwork_arr[i]);
+    let id = artwork_arr[i].id;
+    console.log("artwork id = " + id);
+    let artwork_url = searchURL + "/" + id + "?" + queryString ;
+    console.log("artwork_url = " + artwork_url);
+    
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => { 
@@ -240,26 +234,18 @@ function getArtistInfo() {
   const searchURL = formatURL("artists");
 
   /* Randomly find an artist */
-  try {
-    const id_random = Math.floor(Math.random() * artist_id_arr.length);
-    const id = artist_id_arr[id_random];
-    console.log("artist id = " + id);
-    const url = searchURL + "/" + id + "?" + queryString;
-    console.log("artist url = " + url);
-  }
-  catch(error) {
-    console.log("Could not get artist info: " + error);
-  }
+  const id_random = Math.floor(Math.random() * artist_id_arr.length);
+  const id = artist_id_arr[id_random];
+  console.log("artist id = " + id);
+  const url = searchURL + "/" + id + "?" + queryString;
+  console.log("artist url = " + url);
 
-  console.log("Beginning fetch");
   /* Fetch the artist url and capture the response */
-  /* YOUAREHERE */
   fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
       }
-      console.log("Server is not responding with ok");
       throw new Error(response.statusText);
     })
     .then(responseJson => {
@@ -272,7 +258,6 @@ function getArtistInfo() {
         const artwork_arr = responseJson.data.relationships['artworks']['data'];
         getArtworkInfo(artwork_arr);
       })
-    
     })
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -289,17 +274,15 @@ function listenRandomArtistButton() {
 /* ------------------------------------------------------------- */
 function watchForm() {
   //listen for event
-  $('#js-error-message').hide();
+  /*$('#js-error-message').hide();*/
   listenRandomArtistButton();
 }
 
 $(watchForm);
 
 // Bugs: 
-// 1. Code was working well except for Issue #2. Then I began 
-//    getting "url is not defined" for the artist fetch. Not sure
-//    if I broke something, or if the server is down.
-// 2. If you select the Random Artist button many times, inevitably
+// 1. If you select the Random Artist button many times, inevitably
 //    you will get an error: "Something went wrong: Unexpected token T
 //    in JSON at position 0". At the console, there is a 500 Service
 //    unavailable error. I don't know what's causing this. 
+
