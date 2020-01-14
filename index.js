@@ -95,16 +95,13 @@ function formatQueryParams(params) {
 function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
 
   /* Append artwork info for the artist, whether or not the url is working */
-
-  /* Put items in the correct order for display */
-
   if (typeof(artworkData) != "object") {
     if (artworkData === "error") {
       $('#results-list').append(
         `
         <li>
         <p><b>ARTWORK ${artworkNum} OF ${artworkTotal}</b></p>
-        <p id="artwork-indent"><b>Artwork information is unavailable</b></p>
+        <p id="artwork-indent">Artwork information is unavailable</p>
         </li>
         `
       );
@@ -240,6 +237,7 @@ function getArtworkInfo(artwork_arr) {
       /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
       $('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
+      $('#js-error-message').hide();
     }); 
   }
 }
