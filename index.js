@@ -233,11 +233,11 @@ function getArtworkInfo(artwork_arr) {
         displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
-      $('#js-error-message').show();
+      /* Don't display a red error when artwork can't be retrieved. */
+      /*$('#js-error-message').show();*/
       /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
-      $('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);
+      /*$('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);*/
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
-      $('#js-error-message').hide();
     }); 
   }
 }
@@ -281,7 +281,7 @@ function getArtistInfo() {
     })
     .catch(err => {
       $('#js-error-message').show();
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+      $('#js-error-message').text(`Could not retrieve artist information: ${err.message}`);
     });
 } 
 
