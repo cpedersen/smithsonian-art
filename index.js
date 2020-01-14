@@ -111,6 +111,7 @@ function displayArtworkResults(artworkData) {
   catch(error) {
     console.log("Cannot append artwork data: " + error);
   }
+  console.log("Random Artist display completed");
 }
 
 /* ------------------------------------------------------------- */
