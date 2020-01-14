@@ -129,7 +129,12 @@ function displayArtistResults(responseJson, imgData) {
   /*console.log("places_arr = " + places_arr);*/
   let places_str = '';
   for (let i = 0; i < places_arr.length; i++) {
-    places_str = places_str.concat(places_arr[i], "; ");
+    if (places_arr.length === 1) {
+      /* Don't add semicolon to the end if there's only 1 place */
+      places_str = places_str.concat(places_arr[i]);
+    } else {
+      places_str = places_str.concat(places_arr[i], "; ");
+    }
   }
   /* Display null if nothing is found to be consistent with other fields */
   if (places_str === '') {
@@ -281,5 +286,6 @@ $(watchForm);
 // 1. If you select the Random Artist button many times, inevitably
 //    you will get an error: "Something went wrong: Unexpected token T
 //    in JSON at position 0". At the console, there is a 500 Service
-//    unavailable error. I don't know what's causing this. 
+//    unavailable error. I don't know what's causing this. I always
+//    see it with 'Henry Inman' (d52d374c-6c2a-4e8b-8265-be383ed6c0c2).
 
