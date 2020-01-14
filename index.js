@@ -156,6 +156,17 @@ function displayArtistResults(responseJson, imgData) {
   try {
     $('#results-list').append(
     `<li>
+      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['artist_biography'].value}</p>
+    </li>` 
+    );
+  } 
+  catch(error) {
+    console.log("Cannot append biography data");
+  }
+  
+  try {
+    $('#results-list').append(
+    `<li>
       <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
       <p><b>ADDITIONAL DETAIL:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
     </li>`
@@ -165,16 +176,7 @@ function displayArtistResults(responseJson, imgData) {
     console.log("Cannot append biography data");
   }
 
-  try {
-    $('#results-list').append(
-    `<li>
-      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['artist_biography'].value}</p>
-    </li>` 
-    );
-  } 
-  catch(error) {
-    console.log("Cannot append biography data");
-  }
+
 
   /* Display the results section */
   $('#results').removeClass('hidden');
