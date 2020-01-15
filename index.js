@@ -233,12 +233,13 @@ function getArtworkInfo(artwork_arr) {
         displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
-      /* Don't display a red error when artwork can't be retrieved. */
-      /*$('#js-error-message').show();*/
+      $('#js-error-message').show();
       /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
-      /*$('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);*/
+      $('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
     }); 
+    $('#js-wait-message').show();
+    $('#js-wait-message').text("Data successfully retrieved.");
   }
 }
 
@@ -289,6 +290,9 @@ function getArtistInfo() {
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
     console.log("Random Artist button selected");
+    //YOUAREHERE
+    $('#js-wait-message').show();
+    $('#js-wait-message').text("Wait for data retrieval...");
     getArtistInfo();
   });
 }
@@ -297,6 +301,7 @@ function listenRandomArtistButton() {
 function watchForm() {
   //listen for event
   $('#js-error-message').hide();
+  $('#js-wait-message').hide();
   listenRandomArtistButton();
 }
 
