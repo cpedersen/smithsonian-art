@@ -93,7 +93,6 @@ function formatQueryParams(params) {
 /* ------------------------------------------------------------- */
 /* Display all artwork for the random artist */
 function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
-
   /* Append artwork info for the artist, whether or not the url is working */
   if (typeof(artworkData) != "object") {
     if (artworkData === "error") {
@@ -108,19 +107,46 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     }
   } else {
     try {
-      $('#results-list').append(
-        `
-        <li id="artwork_listing">
-        <p><b>ARTWORK</b></p>
-        <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
-        <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
-        <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
-        <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-        <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
-        <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
-        </li>
-        `
-      );
+      let flag_display = 0;
+      try {
+        let check_val = artworkData.data.attributes['luce_center_label']['value'];
+      } 
+      catch(error) {
+        flag_display++;
+      }
+      /* Only display artwork description of it's available */
+      if (flag_display === 1) {
+        console.log("Description is not available for this artwork");
+        $('#results-list').append(
+          `
+          <li id="artwork_listing">
+          <p><b>ARTWORK</b></p>
+          <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+          <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
+          <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
+          <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+          <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+          <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
+          </li>
+          `
+        );
+      } else {
+        console.log("Description is available for this artwork");
+        $('#results-list').append(
+          `
+          <li id="artwork_listing">
+          <p><b>ARTWORK</b></p>
+          <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+          <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
+          <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
+          <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+          <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+          <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
+          <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
+          </li>
+          `
+        );
+      }
     } 
     catch(error) {
       console.log("Cannot append artwork data: " + error);
@@ -213,7 +239,6 @@ function displayArtistResults(responseJson, imgData) {
 
 /* ------------------------------------------------------------- */
 function getArtworkInfo(artwork_arr) {
-
   /* Store api key */
   const params = {
     api_key: apiKey,
@@ -244,8 +269,7 @@ function getArtworkInfo(artwork_arr) {
       error_count++;
     }); 
 
-    /* TODO - add how many artworks unavailable */
-
+    /* YOUARHERE */
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
   }
@@ -253,7 +277,6 @@ function getArtworkInfo(artwork_arr) {
 
 /* ------------------------------------------------------------- */
 function getArtistInfo() {
-
   /* Store api key */
   const params = {
     api_key: apiKey,
@@ -298,8 +321,8 @@ function getArtistInfo() {
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
     console.log("Random Artist button selected");
-    //YOUAREHERE
     $('#js-wait-message').show();
+    $('#results').addClass('hidden');
     $('#js-wait-message').text("Wait for data retrieval...");
     getArtistInfo();
   });
@@ -307,9 +330,10 @@ function listenRandomArtistButton() {
 
 /* ------------------------------------------------------------- */
 function watchForm() {
-  //listen for event
+  /* Hide previously displayed messages */
   $('#js-error-message').hide();
   $('#js-wait-message').hide();
+  /* Listen for event */
   listenRandomArtistButton();
 }
 
@@ -319,8 +343,5 @@ $(watchForm);
 // 1. If you select the Random Artist button many times, inevitably
 //    you will get an error: "Something went wrong: Unexpected token T
 //    in JSON at position 0". At the console, there is a 500 Service
-//    unavailable error. I don't know what's causing this. I always
-//    see it with 'Henry Inman' (d52d374c-6c2a-4e8b-8265-be383ed6c0c2).
-//    Here's a url to his artwork that returns the error: 
-//    https://api.si.edu/saam/v1/artworks/78703698-0cce-4302-b3ae-e9f62994f324?api_key=9eCw7spZyYcnwSpdSl6hnfPcxiOw1JaFEgNAQV3u
-
+//    unavailable error. I handled this by simply not displaying 
+//    the artwork info that cannot be reached via the url.
