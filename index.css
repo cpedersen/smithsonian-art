@@ -104,3 +104,11 @@ h2 {
 #artwork-indent {
   text-indent: 30px;
 }
+
+#tinyprint {
+  font-size: 12px;
+}
+
+#artwork_listing:nth-child(even) {
+  background: #F5F5DC;
+}

@@ -99,8 +99,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     if (artworkData === "error") {
       $('#results-list').append(
         `
-        <li>
-        <p><b>ARTWORK ${artworkNum} OF ${artworkTotal}</b></p>
+        <li id="artwork_listing">
+        <p><b>ARTWORK</b></p>
         <p id="artwork-indent">Artwork information is unavailable</p>
         </li>
         `
@@ -110,8 +110,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     try {
       $('#results-list').append(
         `
-        <li>
-        <p><b>ARTWORK ${artworkNum} OF ${artworkTotal}</b></p>
+        <li id="artwork_listing">
+        <p><b>ARTWORK</b></p>
         <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
         <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
         <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
@@ -168,6 +168,7 @@ function displayArtistResults(responseJson, imgData) {
         <a target="_blank" href="${imgData.data.attributes.uri.url}">
           <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
         </a> 
+      <p id="tinyprint">Click on image to enlarge</p>
       <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
       <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
       <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
@@ -222,6 +223,9 @@ function getArtworkInfo(artwork_arr) {
   const queryString = formatQueryParams(params);
   const searchURL = formatURL("artworks");
 
+  /* TODO - add error count */
+  let error_count = 0;
+
   /* Print all artwork info for this artist */
   for (let i = 0; i < artwork_arr.length; i++) {
     let id = artwork_arr[i].id;
@@ -233,13 +237,17 @@ function getArtworkInfo(artwork_arr) {
         displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
-      $('#js-error-message').show();
+      /*$('#js-error-message').show();*/
       /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
-      $('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);
+      /*$('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);*/
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
+      error_count++;
     }); 
+
+    /* TODO - add how many artworks unavailable */
+
     $('#js-wait-message').show();
-    $('#js-wait-message').text("Data successfully retrieved.");
+    $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
   }
 }
 
