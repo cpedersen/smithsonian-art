@@ -131,8 +131,8 @@ h2 {
 }
 
 .artwork_listing:nth-child(even) {
-  background: #F5F5DC;
-  /*background: #edeae0;*/
+  /*background: #F5F5DC;*/
+  background: #F0F0F0;
 }
 
 header {
@@ -142,10 +142,6 @@ header {
   margin: auto;
   margin-top: 5%;
   margin-bottom: 0%;
-}
-
-.container {
-  background-color: 
 }
 
 .paintbrush {
