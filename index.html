@@ -10,15 +10,18 @@
 </head>
 <body>
     <div class="container">
-        <h1>Smithsonian Art Museum</h1>
-        <h2>Explore an Artist</h2>
+        <header>
+            <h1>You're at the Smithsonian American Art Museum</h1>
+        </header>
+        <img src="red_paintbrush.jpg" alt="red paintbrush" class="paintbrush">
+        <h2>It's time to explore American Art...</h2>
         <form id="random-form">
             <p>
             <input type="button" class="btn" value="Random Artist" name="random-artist" id="random-artist-btn"> 
             </p>
         </form>
-        <p id="js-wait-message" class="wait-message"></p>
-        <p id="js-error-message" class="error-message"></p>
+        <p id="js-wait-message" class="message"></p>
+        <p id="js-error-message" class="message"></p>
         <section id="results" class="hidden">
           <ul id="results-list">
           </ul>

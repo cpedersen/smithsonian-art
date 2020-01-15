@@ -119,7 +119,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
         console.log("Description is not available for this artwork");
         $('#results-list').append(
           `
-          <li id="artwork_listing">
+          <div class="artwork_listing">
+          <li>
           <p><b>ARTWORK</b></p>
           <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
           <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
@@ -128,13 +129,15 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
           <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
           </li>
+          </div>
           `
         );
       } else {
         console.log("Description is available for this artwork");
         $('#results-list').append(
           `
-          <li id="artwork_listing">
+          <div class="artwork_listing">
+          <li>
           <p><b>ARTWORK</b></p>
           <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
           <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
@@ -144,6 +147,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
           <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
           </li>
+          </div>
           `
         );
       }
@@ -272,7 +276,6 @@ function getArtworkInfo(artwork_arr) {
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
   }
-  console.log("Random Artist display completed");
 }
 
 /* ------------------------------------------------------------- */
