@@ -152,7 +152,6 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       console.log("Cannot append artwork data: " + error);
     }
   }
-  console.log("Random Artist display completed");
 }
 
 /* ------------------------------------------------------------- */
@@ -273,6 +272,7 @@ function getArtworkInfo(artwork_arr) {
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
   }
+  console.log("Random Artist display completed");
 }
 
 /* ------------------------------------------------------------- */
