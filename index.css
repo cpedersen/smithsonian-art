@@ -50,10 +50,16 @@ body {
 
 .btn:hover {
   cursor: pointer;
+  background-color: black;
+  outline: black;
 }
 
 .btn:focus {
-  background-color: darkgray;
+  background-color: #555555;
+}
+
+.btn-faded {
+  background-color: #555555;
 }
 
 ul {

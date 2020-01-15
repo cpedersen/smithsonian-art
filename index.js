@@ -78,7 +78,6 @@ function formatURL(typeArtInfo) {
   } else {
     console.log("ERROR: Type not found");
   }
-  /*console.log("searchURL = " + searchURL);*/
   return searchURL;
 }
 
@@ -116,7 +115,6 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       }
       /* Only display artwork description of it's available */
       if (flag_display === 1) {
-        console.log("Description is not available for this artwork");
         $('#results-list').append(
           `
           <div class="artwork_listing">
@@ -133,7 +131,6 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           `
         );
       } else {
-        console.log("Description is available for this artwork");
         $('#results-list').append(
           `
           <div class="artwork_listing">
@@ -171,7 +168,6 @@ function displayArtistResults(responseJson, imgData) {
   
   /* Create associated places string */
   const places_arr = responseJson.data.attributes['associated_places'];
-  /*console.log("places_arr = " + places_arr);*/
   let places_str = '';
   for (let i = 0; i < places_arr.length; i++) {
     if (places_arr.length === 1) {
@@ -251,7 +247,6 @@ function getArtworkInfo(artwork_arr) {
   const queryString = formatQueryParams(params);
   const searchURL = formatURL("artworks");
 
-  /* TODO - add error count */
   let error_count = 0;
 
   /* Print all artwork info for this artist */
@@ -265,14 +260,10 @@ function getArtworkInfo(artwork_arr) {
         displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
-      /*$('#js-error-message').show();*/
-      /*$('#js-error-message').text(`Artwork could not be retrieved: ${err.message}`);*/
-      /*$('#js-error-message').text(`Artwork ${i+1} of ${artwork_arr.length} cannot be retrieved`);*/
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
       error_count++;
     }); 
 
-    /* YOUARHERE */
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
   }
@@ -326,6 +317,7 @@ function listenRandomArtistButton() {
     console.log("Random Artist button selected");
     $('#js-wait-message').show();
     $('#results').addClass('hidden');
+
     $('#js-wait-message').text("Wait for data retrieval...");
     getArtistInfo();
   });
@@ -342,9 +334,7 @@ function watchForm() {
 
 $(watchForm);
 
-// Bugs: 
-// 1. If you select the Random Artist button many times, inevitably
-//    you will get an error: "Something went wrong: Unexpected token T
-//    in JSON at position 0". At the console, there is a 500 Service
-//    unavailable error. I handled this by simply not displaying 
-//    the artwork info that cannot be reached via the url.
+
+  /* FYI - add and remove fading to button:
+  $('#random-artist-btn').addClass('faded-btn');
+  $('#random-artist-btn').removeClass('faded-btn');*/
