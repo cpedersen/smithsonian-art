@@ -199,7 +199,7 @@ function displayArtistResults(responseJson, imgData) {
   }
 
   /* Print url for default img */
-  console.log("image url = " + imgData.data.attributes.uri.url);
+  /*console.log("image url = " + imgData.data.attributes.uri.url);*/
 
   /* Convert null values to "Unavailable" */
   let date_of_birth = responseJson.data.attributes['date_of_birth'];
@@ -291,7 +291,7 @@ function getArtworkInfo(artwork_arr) {
   for (let i = 0; i < artwork_arr.length; i++) {
     let id = artwork_arr[i].id;
     let artwork_url = searchURL + "/" + id + "?" + queryString ;
-    console.log(`artwork url ${i+1} of ${artwork_arr.length} = ` + artwork_url);
+    /*console.log(`artwork url ${i+1} of ${artwork_arr.length} = ` + artwork_url);*/
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => { 
@@ -322,7 +322,7 @@ function getArtistInfo() {
   const id_random = Math.floor(Math.random() * artist_id_arr.length);
   const id = artist_id_arr[id_random];
   const url = searchURL + "/" + id + "?" + queryString;
-  console.log("artist url = " + url);
+  /*console.log("artist url = " + url);*/
 
   /* Fetch the artist url and capture the response */
   fetch(url)
@@ -352,7 +352,7 @@ function getArtistInfo() {
 /* ------------------------------------------------------------- */
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
-    console.log("Random Artist button selected");
+    /*console.log("Random Artist button selected");*/
     $('#random-artist-btn').addClass('faded-btn');
     $('#js-wait-message').show();
     $('#results').addClass('hidden');
