@@ -117,7 +117,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       if (flag_display === 1) {
         $('#results-list').append(
           `
-          <div class="artwork_listing">
+          <section class="artwork_listing">
           <li>
           <p><b>ARTWORK</b></p>
           <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
@@ -127,13 +127,13 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
           <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
           </li>
-          </div>
+          </section>
           `
         );
       } else {
         $('#results-list').append(
           `
-          <div class="artwork_listing">
+          <section class="artwork_listing">
           <li>
           <p><b>ARTWORK</b></p>
           <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
@@ -144,7 +144,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
           <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
           </li>
-          </div>
+          </section>
           `
         );
       }
@@ -153,6 +153,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       console.log("Cannot append artwork data: " + error);
     }
   }
+  //YOUAREHERE1
+  $('#random-artist-btn').removeClass('faded-btn');
 }
 
 /* ------------------------------------------------------------- */
@@ -193,7 +195,7 @@ function displayArtistResults(responseJson, imgData) {
         <a target="_blank" href="${imgData.data.attributes.uri.url}">
           <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
         </a> 
-      <p id="tinyprint">Click on image to enlarge</p>
+      <p id="tinyprint">Click image to enlarge</p>
       <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
       <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
       <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
@@ -266,6 +268,8 @@ function getArtworkInfo(artwork_arr) {
 
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
+    //YOUAREHERE3
+    $('#random-artist-btn').removeClass('faded-btn');
   }
 }
 
@@ -315,9 +319,10 @@ function getArtistInfo() {
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
     console.log("Random Artist button selected");
+    //YOUAREHERE2
+    $('#random-artist-btn').addClass('faded-btn');
     $('#js-wait-message').show();
     $('#results').addClass('hidden');
-
     $('#js-wait-message').text("Wait for data retrieval...");
     getArtistInfo();
   });

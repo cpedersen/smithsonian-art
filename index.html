@@ -10,15 +10,16 @@
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <main role="main" id="main-screen" class="container">
         <header>
             <h1>You're at the Smithsonian American Art Museum</h1>
         </header>
         <img src="red_paintbrush.jpg" alt="red paintbrush" class="paintbrush">
         <h2>It's time to explore American Art...</h2>
+        <p id="btn-intro">Click the button below to get biographical and artwork information on an artist from the museum.</p>
         <form id="random-form">
             <p>
-            <input type="button" class="btn" value="Random Artist" name="random-artist" id="random-artist-btn" class="faded-btn"> 
+            <input type="button" id="random-artist-btn" class="btn" class="faded-btn" value="Random Artist" name="random-artist"> 
             </p>
         </form>
         <p id="js-wait-message" class="message"></p>
@@ -27,7 +28,8 @@
           <ul id="results-list">
           </ul>
         </section>
-    </div>
+    </main>
+section>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
