@@ -108,7 +108,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     try {
       let flag_display = 0;
       try {
-        let check_val = artworkData.data.attributes['luce_center_label']['value'];
+        const check_val = artworkData.data.attributes['luce_center_label']['value'];
       } 
       catch(error) {
         flag_display++;
@@ -289,8 +289,8 @@ function getArtworkInfo(artwork_arr) {
 
   /* Print all artwork info for this artist */
   for (let i = 0; i < artwork_arr.length; i++) {
-    let id = artwork_arr[i].id;
-    let artwork_url = searchURL + "/" + id + "?" + queryString ;
+    const id = artwork_arr[i].id;
+    const artwork_url = searchURL + "/" + id + "?" + queryString ;
     /*console.log(`artwork url ${i+1} of ${artwork_arr.length} = ` + artwork_url);*/
     fetch(artwork_url)
       .then(res => res.json())
