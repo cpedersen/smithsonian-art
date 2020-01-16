@@ -24,41 +24,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-}
-
-.btn:after {
-  content: "";
-  background: #f1f1f1;
-  display: block;
-  position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
-  margin-left: -20px !important;
-  margin-top: -120%;
-  opacity: 0;
-  transition: all 0.8s
-}
-
-.btn:active:after {
-  padding: 0;
-  margin: 0;
-  opacity: 1;
-  transition: 0s;
-  outline: none;
-}
-
-.btn:hover {
-  cursor: pointer;
   background-color: black;
-  outline: black;
 }
 
-.btn:focus {
-  background-color: #555555;
-}
-
-.btn-faded {
-  background-color: #555555;
+.faded-btn {
+  opacity: 0.3;
 }
 
 ul {
@@ -104,6 +74,12 @@ h2 {
   font-family: 'Caveat Brush', cursive;
 }
 
+#btn-intro {
+  font-family: Roboto;
+  text-align: center;
+  padding: 2px 30% 2px 30%;
+}
+
 #img-bio {
   display: block;
   margin-left: left;
@@ -131,7 +107,6 @@ h2 {
 }
 
 .artwork_listing:nth-child(even) {
-  /*background: #F5F5DC;*/
   background: #F0F0F0;
 }
 
@@ -155,4 +130,3 @@ header {
 .message {
   text-align: center;
 }
-

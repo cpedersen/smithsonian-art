@@ -153,7 +153,6 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       console.log("Cannot append artwork data: " + error);
     }
   }
-  //YOUAREHERE1
   $('#random-artist-btn').removeClass('faded-btn');
 }
 
@@ -268,8 +267,6 @@ function getArtworkInfo(artwork_arr) {
 
     $('#js-wait-message').show();
     $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
-    //YOUAREHERE3
-    $('#random-artist-btn').removeClass('faded-btn');
   }
 }
 
@@ -319,7 +316,6 @@ function getArtistInfo() {
 function listenRandomArtistButton() {
   $('form').on('click', '#random-artist-btn', function (event) {
     console.log("Random Artist button selected");
-    //YOUAREHERE2
     $('#random-artist-btn').addClass('faded-btn');
     $('#js-wait-message').show();
     $('#results').addClass('hidden');
@@ -339,7 +335,3 @@ function watchForm() {
 
 $(watchForm);
 
-
-  /* FYI - add and remove fading to button:
-  $('#random-artist-btn').addClass('faded-btn');
-  $('#random-artist-btn').removeClass('faded-btn');*/
