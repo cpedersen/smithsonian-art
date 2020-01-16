@@ -11,4 +11,4 @@ EXAMPLE:
 See the png file in this directory to see what the app looks like.
 
 TECHNOLOGY USED:
-HTML, CSS, JavaScript, and jQuery.
+HTML, CSS, JavaScript, and jQuery
