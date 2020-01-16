@@ -113,20 +113,35 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       catch(error) {
         flag_display++;
       }
+
+      /* Convert null values to "Unavailable" */
+      let dated = artworkData.data.attributes['dated'];
+      if (dated === null) {
+        dated = "Unavailable";
+      }
+      let display_mediums = artworkData.data.attributes['display_mediums'];
+      if (display_mediums === null) {
+        display_mediums = "Unavailable";
+      }
+      let credit_line = artworkData.data.attributes['credit_line'];
+      if (credit_line === null) {
+        credit_line = "Unavailable";
+      }
+
       /* Only display artwork description of it's available */
       if (flag_display === 1) {
         $('#results-list').append(
           `
           <section class="artwork_listing">
-          <li>
-          <p><b>ARTWORK</b></p>
-          <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
-          <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
-          <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
-          <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-          <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
-          <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
-          </li>
+            <li>
+              <p><b>ARTWORK</b></p>
+              <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+              <p id="artwork-indent"><b>DATED:</b> ${dated}</p>
+              <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${display_mediums}</p>
+              <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+              <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+              <p id="artwork-indent"><b>CREDIT:</b> ${credit_line}</p>
+            </li>
           </section>
           `
         );
@@ -134,16 +149,16 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
         $('#results-list').append(
           `
           <section class="artwork_listing">
-          <li>
-          <p><b>ARTWORK</b></p>
-          <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
-          <p id="artwork-indent"><b>DATED:</b> ${artworkData.data.attributes['dated']}</p>
-          <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${artworkData.data.attributes['display_mediums']}</p>
-          <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-          <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
-          <p id="artwork-indent"><b>CREDIT:</b> ${artworkData.data.attributes['credit_line']}</p>
-          <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
-          </li>
+            <li>
+            <p><b>ARTWORK</b></p>
+            <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+            <p id="artwork-indent"><b>DATED:</b> ${dated}</p>
+            <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${display_mediums}</p>
+            <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
+            <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+            <p id="artwork-indent"><b>CREDIT:</b> ${credit_line}</p>
+            <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
+            </li>
           </section>
           `
         );
@@ -180,11 +195,32 @@ function displayArtistResults(responseJson, imgData) {
   }
   /* Display null if nothing is found to be consistent with other fields */
   if (places_str === '') {
-    places_str = 'null';
+    places_str = 'Unavailable';
   }
 
   /* Print url for default img */
   console.log("image url = " + imgData.data.attributes.uri.url);
+
+  /* Convert null values to "Unavailable" */
+  let date_of_birth = responseJson.data.attributes['date_of_birth'];
+  if (date_of_birth === null) {
+    date_of_birth = "Unavailable";
+  }
+
+  let birth_place = responseJson.data.attributes['birth_place'];
+  if (birth_place === null) {
+    birth_place = "Unavailable";
+  }
+
+  let date_of_death = responseJson.data.attributes['date_of_death'];
+  if (date_of_death === null) {
+    date_of_death = "Unavailable";
+  }
+
+  let death_place = responseJson.data.attributes['death_place'];
+  if (death_place === null) {
+    death_place = "Unavailable";
+  }
 
   /* Append artist info */
   try {
@@ -194,14 +230,14 @@ function displayArtistResults(responseJson, imgData) {
         <a target="_blank" href="${imgData.data.attributes.uri.url}">
           <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
         </a> 
-      <p id="tinyprint">Click image to enlarge</p>
-      <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
-      <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
-      <p><b>DATE OF BIRTH:</b> ${responseJson.data.attributes['date_of_birth']}</p>
-      <p><b>BIRTH PLACE:</b> ${responseJson.data.attributes['birth_place']}</p>
-      <p><b>DATE OF DEATH:</b> ${responseJson.data.attributes['date_of_death']}</p>
-      <p><b>PLACE OF DEATH:</b> ${responseJson.data.attributes['death_place']}</p>
-      <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>   
+        <p id="tinyprint">Click image to enlarge</p>
+        <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
+        <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
+        <p><b>DATE OF BIRTH:</b> ${date_of_birth}</p>
+        <p><b>BIRTH PLACE:</b> ${birth_place}</p>
+        <p><b>DATE OF DEATH:</b> ${date_of_death}</p>
+        <p><b>PLACE OF DEATH:</b> ${death_place}</p>
+        <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>   
       </li>
       `
       );
@@ -248,6 +284,7 @@ function getArtworkInfo(artwork_arr) {
   const queryString = formatQueryParams(params);
   const searchURL = formatURL("artworks");
 
+  /* Keep track of errors */
   let error_count = 0;
 
   /* Print all artwork info for this artist */
