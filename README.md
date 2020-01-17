@@ -16,4 +16,4 @@ A small sample data set is used.
 HTML, CSS, JavaScript, and jQuery
 
 # SCREENCAPTURE:
-![alt text] (https://github.com/cpedersen/smithsonian-art/Hack_API_Capstone.png "Welcome screen")
+![alt text] (Hack_API_Capstone.png "Example screen")
