@@ -17,3 +17,5 @@ HTML, CSS, JavaScript, and jQuery
 
 # SCREENCAPTURE:
 Refer to the Hack_API_Capstone.png example screen in this directory.
+
+![example](smithsonian-art/Hack_API_Capstone.png)
