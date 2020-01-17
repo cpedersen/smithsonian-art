@@ -16,6 +16,6 @@ A small sample data set is used.
 HTML, CSS, JavaScript, and jQuery
 
 # SCREENCAPTURE:
-Refer to the Hack_API_Capstone.png example screen in this directory.
+After selecting the Random Artist button, you should see content such as the following:
 
 ![Hack_API_Capstone](Hack_API_Capstone.png)
