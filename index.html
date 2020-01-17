@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Search the SAAM</title>
-    <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush&display=swap" rel="stylesheet">
 </head>
 <body>
     <main role="main" id="main-screen" class="container">
-        <header>
+        <header role="heading">
             <h1>You're at the Smithsonian American Art Museum</h1>
         </header>
         <img src="red_paintbrush.jpg" alt="red paintbrush" class="paintbrush">
         <h2>It's time to explore American Art...</h2>
         <p id="btn-intro">Click the button below to get biographical and artwork information on an artist from the museum.</p>
-        <form id="random-form">
+        <form role="input form" id="random-form">
             <p>
-            <input type="button" id="random-artist-btn" class="btn" value="Random Artist" name="random-artist"> 
+            <input type="button" role="button" id="random-artist-btn" class="btn" value="Random Artist" name="random-artist"> 
             </p>
         </form>
-        <p id="js-wait-message" class="message"></p>
-        <p id="js-error-message" class="message"></p>
-        <section id="results" class="hidden">
+        <section role="display messages" id="errors">
+            <p id="js-wait-message" class="message"></p>
+            <p id="js-error-message" class="message"></p>
+        </section>
+        <section role="display results" id="results" class="hidden">
           <ul id="results-list">
           </ul>
         </section>
