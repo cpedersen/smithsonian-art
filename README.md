@@ -18,4 +18,4 @@ HTML, CSS, JavaScript, and jQuery
 # SCREENCAPTURE:
 After selecting the Random Artist button, you should see content such as the following:
 
-![Hack_API_Capstone](Hack_API_Capstone.png)
+![screen_example](screen_example.png)
