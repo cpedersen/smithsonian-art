@@ -1,14 +1,19 @@
-APP NAME:
+# APP NAME:
 Search the SAAM (Smithsonian American Art Museum)
 
-TO RUN:
+# TO RUN:
 To run the app, go to https://cpedersen.github.io/smithsonian-art/
 
-SUMMARY:
+# SUMMARY:
 This is an app intended to help explore art at the Smithsonian American Art Museum (SAAM). The user can randomly generate artist information as a vehicle for exploring both American art and art at the museum. 
 
-EXAMPLE:
-See the png file in this directory to see what the app looks like.
+Clicking on the Random Artist button displays biographical information about the artist, as well as details about the artist's artwork owned by the museum. You can find out whether the artwork is on display and how the museum acquired the art. 
 
-TECHNOLOGY USED:
+# DATA: 
+A small sample data set is used.
+
+# TECHNOLOGY USED:
 HTML, CSS, JavaScript, and jQuery
+
+# SCREENCAPTURE:
+[img] https://github.com/cpedersen/smithsonian-art/Hack_API_Capstone.png
