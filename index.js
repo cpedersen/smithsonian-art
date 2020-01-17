@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 /* API key for Smithsonian Art Museum */
-const apiKey = '9eCw7spZyYcnwSpdSl6hnfPcxiOw1JaFEgNAQV3u';
+const apiKey = "9eCw7spZyYcnwSpdSl6hnfPcxiOw1JaFEgNAQV3u";
 
 /* Sample artist data */
 const artist_id_arr = [
@@ -62,19 +62,19 @@ const artist_id_arr = [
 /* Format url for a particular endpoint (only artworks and artists
    supported now) */
 function formatURL(typeArtInfo) {
-  let searchURL = '';
+  let searchURL = "";
   if (typeArtInfo === "artworks") {
-    searchURL = 'https://api.si.edu/saam/v1/artworks';
+    searchURL = "https://api.si.edu/saam/v1/artworks";
   } else if (typeArtInfo === "artists") {
-    searchURL = 'https://api.si.edu/saam/v1/artists';
+    searchURL = "https://api.si.edu/saam/v1/artists";
   } else if (typeArtInfo === "institutions") {
-    searchURL = 'https://api.si.edu/saam/v1/institutions'; 
+    searchURL = "https://api.si.edu/saam/v1/institutions";
   } else if (typeArtInfo === "exhibitions") {
-    searchURL = 'https://api.si.edu/saam/v1/exhibitions';
+    searchURL = "https://api.si.edu/saam/v1/exhibitions";
   } else if (typeArtInfo === "audio") {
-    searchURL = 'https://api.si.edu/saam/v1/audio';
+    searchURL = "https://api.si.edu/saam/v1/audio";
   } else if (typeArtInfo === "books") {
-    searchURL = 'https://api.si.edu/saam/v1/books';
+    searchURL = "https://api.si.edu/saam/v1/books";
   } else {
     console.log("ERROR: Type not found");
   }
@@ -85,8 +85,9 @@ function formatURL(typeArtInfo) {
 /* Put the query together */
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-  return queryItems.join('&');
+    .map((key) =>
+    `${(encodeURIComponent(key))}=${(encodeURIComponent(params[key]))}`);
+  return queryItems.join("&");
 }
 
 /* ------------------------------------------------------------- */
@@ -95,7 +96,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
   /* Append artwork info for the artist, whether or not the url is working */
   if (typeof(artworkData) != "object") {
     if (artworkData === "error") {
-      $('#results-list').append(
+      $("#results-list").append(
         `
         <li id="artwork_listing">
         <p><b>ARTWORK</b></p>
@@ -108,67 +109,77 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     try {
       let flag_display = 0;
       try {
-        const check_val = artworkData.data.attributes['luce_center_label']['value'];
-      } 
-      catch(error) {
+        const check_val =
+          artworkData.data.attributes.luce_center_label.value;
+      }
+      catch(error_luce) {
         flag_display++;
       }
 
       /* Convert null values to "Unavailable" */
-      let dated = artworkData.data.attributes['dated'];
+      let dated = artworkData.data.attributes.dated;
       if (dated === null) {
         dated = "Unavailable";
       }
-      let display_mediums = artworkData.data.attributes['display_mediums'];
+      let display_mediums = artworkData.data.attributes.display_mediums;
       if (display_mediums === null) {
         display_mediums = "Unavailable";
       }
-      let credit_line = artworkData.data.attributes['credit_line'];
+      let credit_line = artworkData.data.attributes.credit_line;
       if (credit_line === null) {
         credit_line = "Unavailable";
       }
 
       /* Only display artwork description of it's available */
       if (flag_display === 1) {
-        $('#results-list').append(
+        $("#results-list").append(
           `
           <section class="artwork_listing">
             <li>
               <p><b>ARTWORK</b></p>
-              <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+              <p id="artwork-indent"><b>TITLE:</b>
+                ${artworkData.data.attributes.title}</p>
               <p id="artwork-indent"><b>DATED:</b> ${dated}</p>
-              <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${display_mediums}</p>
-              <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-              <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+              <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b>
+                ${display_mediums}</p>
+              <p id="artwork-indent"><b>IS ON VIEW?:</b>
+                ${artworkData.data.attributes.is_on_view}</p>
+              <p id="artwork-indent"><b>NEW ACQUISTION?:</b>
+                ${artworkData.data.attributes.is_new_acquistion}</p>
               <p id="artwork-indent"><b>CREDIT:</b> ${credit_line}</p>
             </li>
           </section>
           `
         );
       } else {
-        $('#results-list').append(
+        $("#results-list").append(
           `
           <section class="artwork_listing">
             <li>
             <p><b>ARTWORK</b></p>
-            <p id="artwork-indent"><b>TITLE:</b> ${artworkData.data.attributes['title']}</p>
+            <p id="artwork-indent"><b>TITLE:</b>
+              ${artworkData.data.attributes.title}</p>
             <p id="artwork-indent"><b>DATED:</b> ${dated}</p>
-            <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b> ${display_mediums}</p>
-            <p id="artwork-indent"><b>IS ON VIEW?:</b> ${artworkData.data.attributes['is_on_view']}</p>
-            <p id="artwork-indent"><b>NEW ACQUISTION?:</b> ${artworkData.data.attributes['is_new_acquistion']}</p>
+            <p id="artwork-indent"><b>DISPLAY MEDIUMS:</b>
+              ${display_mediums}</p>
+            <p id="artwork-indent"><b>IS ON VIEW?:</b>
+              ${artworkData.data.attributes.is_on_view}</p>
+            <p id="artwork-indent"><b>NEW ACQUISTION?:</b>
+              ${artworkData.data.attributes.is_new_acquistion}</p>
             <p id="artwork-indent"><b>CREDIT:</b> ${credit_line}</p>
-            <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b> ${artworkData.data.attributes['luce_center_label']['value']}</p>
+            <p id="artwork-indent"><b>ARTWORK DESCRIPTION:</b>
+              ${artworkData.data.attributes.luce_center_label.value}</p>
             </li>
           </section>
           `
         );
       }
-    } 
-    catch(error) {
+    }
+    catch(error_append) {
       console.log("Cannot append artwork data: " + error);
     }
   }
-  $('#random-artist-btn').removeClass('faded-btn');
+  $("#random-artist-btn").removeClass("faded-btn");
 }
 
 /* ------------------------------------------------------------- */
@@ -180,64 +191,65 @@ function displayArtistResults(responseJson, imgData) {
   const totalObjs = Object.keys(responseJson).length;
 
   /* Clear out the results area of the ui */
-  $('#results-list').empty();
-  
+  $("#results-list").empty();
+
   /* Create associated places string */
-  const places_arr = responseJson.data.attributes['associated_places'];
-  let places_str = '';
+  const places_arr = responseJson.data.attributes.associated_places;
+  let places_str = "";
   for (let i = 0; i < places_arr.length; i++) {
     if (places_arr.length === 1) {
-      /* Don't add semicolon to the end if there's only 1 place */
       places_str = places_str.concat(places_arr[i]);
     } else {
       places_str = places_str.concat(places_arr[i], "; ");
     }
   }
+
   /* Display null if nothing is found to be consistent with other fields */
-  if (places_str === '') {
-    places_str = 'Unavailable';
+  if (places_str === "") {
+    places_str = "Unavailable";
   }
 
   /* Print url for default img */
   /*console.log("image url = " + imgData.data.attributes.uri.url);*/
 
   /* Convert null values to "Unavailable" */
-  let date_of_birth = responseJson.data.attributes['date_of_birth'];
+  let date_of_birth = responseJson.data.attributes.date_of_birth;
   if (date_of_birth === null) {
     date_of_birth = "Unavailable";
   }
 
-  let birth_place = responseJson.data.attributes['birth_place'];
+  let birth_place = responseJson.data.attributes.birth_place;
   if (birth_place === null) {
     birth_place = "Unavailable";
   }
 
-  let date_of_death = responseJson.data.attributes['date_of_death'];
+  let date_of_death = responseJson.data.attributes.date_of_death;
   if (date_of_death === null) {
     date_of_death = "Unavailable";
   }
 
-  let death_place = responseJson.data.attributes['death_place'];
+  let death_place = responseJson.data.attributes.death_place;
   if (death_place === null) {
     death_place = "Unavailable";
   }
 
   /* Append artist info */
   try {
-    $('#results-list').append(
+    $("#results-list").append(
       `
       <li>
         <a target="_blank" href="${imgData.data.attributes.uri.url}">
-          <img src="${imgData.data.attributes.uri.url}" alt="img-bio" id="img-bio">
-        </a> 
+          <img src="${imgData.data.attributes.uri.url}"
+            alt="img-bio" id="img-bio">
+        </a>
         <p id="tinyprint">Click image to enlarge</p>
-        <p><b>INFO UPDATED:</b> ${responseJson.data.attributes['changed']}</p>
-        <p><b>NAME:</b> ${responseJson.data.attributes['title']}</p>
+        <p><b>INFO UPDATED:</b> ${responseJson.data.attributes.changed}</p>
+        <p><b>NAME:</b> ${responseJson.data.attributes.title}</p>
         <p><b>DATE OF BIRTH:</b> ${date_of_birth}</p>
         <p><b>BIRTH PLACE:</b> ${birth_place}</p>
         <p><b>DATE OF DEATH:</b> ${date_of_death}</p>
         <p><b>PLACE OF DEATH:</b> ${death_place}</p>
-        <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>   
+        <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>
       </li>
       `
       );
@@ -248,29 +260,31 @@ function displayArtistResults(responseJson, imgData) {
 
   /* Also append biography if it's available */
   try {
-    $('#results-list').append(
+    $("#results-list").append(
     `<li>
-      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes['artist_biography'].value}</p>
-    </li>` 
+      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes
+        .artist_biography.value}</p>
+    </li>`
     );
-  } 
+  }
   catch(error) {
     console.log("Cannot append artist biography data: " + error);
   }
 
   try {
-    $('#results-list').append(
+    $("#results-list").append(
     `<li>
-      <p><b>ARTIST BACKGROUND:</b> ${responseJson.data.attributes['luce_artist_biography'].value}</p>
+      <p><b>ARTIST BACKGROUND:</b> ${responseJson.data.attributes
+        .luce_artist_biography.value}</p>
     </li>`
     );
-  } 
+  }
   catch(error) {
     console.log("Cannot append luce artist biography data: " + error);
   }
 
   /* Display the results section */
-  $('#results').removeClass('hidden');
+  $("#results").removeClass("hidden");
 }
 
 /* ------------------------------------------------------------- */
@@ -291,19 +305,21 @@ function getArtworkInfo(artwork_arr) {
   for (let i = 0; i < artwork_arr.length; i++) {
     const id = artwork_arr[i].id;
     const artwork_url = searchURL + "/" + id + "?" + queryString ;
-    /*console.log(`artwork url ${i+1} of ${artwork_arr.length} = ` + artwork_url);*/
+    /*console.log(`artwork url ${i+1} of
+      ${artwork_arr.length} = ` + artwork_url);*/
     fetch(artwork_url)
       .then(res => res.json())
-      .then(artworkData => { 
+      .then(artworkData => {
         displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
     })
     .catch(err => {
       displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
       error_count++;
-    }); 
+    });
 
-    $('#js-wait-message').show();
-    $('#js-wait-message').text(`${i+1} of ${artwork_arr.length} artworks successfully retrieved`);
+    $("#js-wait-message").show();
+    $("#js-wait-message").text(`${i+1} of ${artwork_arr.length}
+      artworks successfully retrieved`);
   }
 }
 
@@ -333,30 +349,32 @@ function getArtistInfo() {
       throw new Error(response.statusText);
     })
     .then(responseJson => {
-      const url1 = responseJson.data.relationships['default_image'].links['related'].href;
+      const url1 = responseJson.data.relationships.default_image.links.
+        related.href;
       const default_image_url = url1 + "&api_key=" + apiKey;
       fetch(default_image_url)
       .then(res => res.json())
-      .then(imgData => { 
+      .then(imgData => {
         displayArtistResults(responseJson, imgData);
-        const artwork_arr = responseJson.data.relationships['artworks']['data'];
+        const artwork_arr = responseJson.data.relationships.artworks.data;
         getArtworkInfo(artwork_arr);
       })
     })
     .catch(err => {
-      $('#js-error-message').show();
-      $('#js-error-message').text(`Could not retrieve artist information: ${err.message}`);
+      $("#js-error-message").show();
+      $("#js-error-message").text(`Could not retrieve artist information:
+        ${err.message}`);
     });
-} 
+}
 
 /* ------------------------------------------------------------- */
 function listenRandomArtistButton() {
-  $('form').on('click', '#random-artist-btn', function (event) {
+  $("form").on("click", "#random-artist-btn", function (event) {
     /*console.log("Random Artist button selected");*/
-    $('#random-artist-btn').addClass('faded-btn');
-    $('#js-wait-message').show();
-    $('#results').addClass('hidden');
-    $('#js-wait-message').text("Wait for data retrieval...");
+    $("#random-artist-btn").addClass("faded-btn");
+    $("#js-wait-message").show();
+    $("#results").addClass("hidden");
+    $("#js-wait-message").text("Wait for data retrieval...");
     getArtistInfo();
   });
 }
@@ -364,8 +382,8 @@ function listenRandomArtistButton() {
 /* ------------------------------------------------------------- */
 function watchForm() {
   /* Hide previously displayed messages */
-  $('#js-error-message').hide();
-  $('#js-wait-message').hide();
+  $("#js-error-message").hide();
+  $("#js-wait-message").hide();
   /* Listen for event */
   listenRandomArtistButton();
 }
