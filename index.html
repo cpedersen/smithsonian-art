@@ -12,19 +12,21 @@
         <header role="heading">
             <h1>You're at the Smithsonian American Art Museum</h1>
         </header>
-        <img src="red_paintbrush.jpg" alt="red paintbrush" class="paintbrush">
-        <h2>It's time to explore American Art...</h2>
-        <p id="btn-intro">Click the button below to get biographical and artwork information on an artist from the museum.</p>
-        <form role="input form" id="random-form">
+        <section role="intro" id="intro">
+            <img src="red_paintbrush.jpg" alt="red paintbrush" class="paintbrush">
+            <h2>It's time to explore American Art...</h2>
+            <p id="btn-intro">Click the button below to get biographical and artwork information on an artist from the museum.</p>
+        </section>
+        <form role="input" id="random-form">
             <p>
             <input type="button" role="button" id="random-artist-btn" class="btn" value="Random Artist" name="random-artist"> 
             </p>
         </form>
-        <section role="display messages" id="errors">
+        <section role="usermessages" id="errors">
             <p id="js-wait-message" class="message"></p>
             <p id="js-error-message" class="message"></p>
         </section>
-        <section role="display results" id="results" class="hidden">
+        <section role="results" id="results" class="hidden">
           <ul id="results-list">
           </ul>
         </section>
