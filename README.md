@@ -16,4 +16,4 @@ A small sample data set is used.
 HTML, CSS, JavaScript, and jQuery
 
 # SCREENCAPTURE:
-![alt text] (Hack_API_Capstone.png "Example screen")
+Refer to the Hack_API_Capstone.png example screen in this directory.
