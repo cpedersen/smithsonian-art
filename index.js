@@ -106,6 +106,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
       );
     }
   } else {
+    /* Check endpoints before attempting to use by using trys */
     try {
       let flag_display = 0;
       try {
@@ -130,7 +131,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
         credit_line = "Unavailable";
       }
 
-      /* Only display artwork description of it's available */
+      /* Only display artwork description if available */
       if (flag_display === 1) {
         $("#results-list").append(
           `
@@ -175,10 +176,11 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
         );
       }
     }
-    catch(error_append) {
-      console.log("Cannot append artwork data: " + error);
+    catch(error_artwork) {
+      console.log("Cannot append artwork data: " + error_artwork);
     }
   }
+  /* Stop using faded button */
   $("#random-artist-btn").removeClass("faded-btn");
 }
 
@@ -186,9 +188,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
 /* Display info about the artist */
 function displayArtistResults(responseJson, imgData) {
 
-  /* Store responseJson into an array */
+  /* Store responseJson info in array */
   const values = Object.values(responseJson);
-  const totalObjs = Object.keys(responseJson).length;
 
   /* Clear out the results area of the ui */
   $("#results-list").empty();
@@ -204,15 +205,14 @@ function displayArtistResults(responseJson, imgData) {
     }
   }
 
-  /* Display null if nothing is found to be consistent with other fields */
+  /* Print url for default img */
+  /*console.log("image url = " + imgData.data.attributes.uri.url);*/
+
+  /* Convert empty and values to "Unavailable" */
   if (places_str === "") {
     places_str = "Unavailable";
   }
 
-  /* Print url for default img */
-  /*console.log("image url = " + imgData.data.attributes.uri.url);*/
-
-  /* Convert null values to "Unavailable" */
   let date_of_birth = responseJson.data.attributes.date_of_birth;
   if (date_of_birth === null) {
     date_of_birth = "Unavailable";
@@ -254,8 +254,9 @@ function displayArtistResults(responseJson, imgData) {
       `
       );
   }
-  catch(error) {
-    console.log("Cannot append artist biography data: " + error);
+  catch(error_details) {
+    /* Do not need to print this error, since this info not always available */
+    /*console.log("Cannot append artist biography data: " + error_details);*/
   }
 
   /* Also append biography if it's available */
@@ -267,8 +268,9 @@ function displayArtistResults(responseJson, imgData) {
     </li>`
     );
   }
-  catch(error) {
-    console.log("Cannot append artist biography data: " + error);
+  catch(error_bio) {
+    /* Do not need to print this error, since this info not always available */
+    /*console.log("Cannot append artist biography data: " + error_bio);*/
   }
 
   try {
@@ -279,8 +281,9 @@ function displayArtistResults(responseJson, imgData) {
     </li>`
     );
   }
-  catch(error) {
-    console.log("Cannot append luce artist biography data: " + error);
+  catch(error_background) {
+    /* Do not need to print this error, since this info not always available */
+    /*console.log("Cannot append luce artist biography data: " + error_background);*/
   }
 
   /* Display the results section */
@@ -305,8 +308,6 @@ function getArtworkInfo(artwork_arr) {
   for (let i = 0; i < artwork_arr.length; i++) {
     const id = artwork_arr[i].id;
     const artwork_url = searchURL + "/" + id + "?" + queryString ;
-    /*console.log(`artwork url ${i+1} of
-      ${artwork_arr.length} = ` + artwork_url);*/
     fetch(artwork_url)
       .then(res => res.json())
       .then(artworkData => {
@@ -370,10 +371,12 @@ function getArtistInfo() {
 /* ------------------------------------------------------------- */
 function listenRandomArtistButton() {
   $("form").on("click", "#random-artist-btn", function (event) {
-    /*console.log("Random Artist button selected");*/
+    /* Start fading the button */
     $("#random-artist-btn").addClass("faded-btn");
     $("#js-wait-message").show();
+    /* Hide any previous error */
     $("#results").addClass("hidden");
+    /* Let user know that the server call may take awhile */
     $("#js-wait-message").text("Wait for data retrieval...");
     getArtistInfo();
   });
