@@ -98,10 +98,12 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     if (artworkData === "error") {
       $("#results-list").append(
         `
-        <li id="artwork_listing">
-        <p><b>ARTWORK</b></p>
-        <p id="artwork-indent">Artwork information is unavailable</p>
-        </li>
+        <section class="artwork_listing">
+          <li>
+            <p><b>ARTWORK</b></p>
+            <p id="artwork-indent">Artwork information is unavailable</p>
+          </li>
+        </section>
         `
       );
     }
