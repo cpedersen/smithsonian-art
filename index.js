@@ -1,7 +1,7 @@
 "use strict";
 
 /* API key for Smithsonian Art Museum */
-const apiKey = "9eCw7spZyYcnwSpdSl6hnfPcxiOw1JaFEgNAQV3u";
+const apiKey = "OrFepxlZ19QfuIhaXWxu5AgkpQJUeeYpg2aUkycc";
 
 /* Sample artist data */
 const artist_id_arr = [
@@ -55,7 +55,7 @@ const artist_id_arr = [
   "496d6bbf-70b0-4095-9a73-a89fba3ff28a",
   "9478f436-5839-4f45-bb27-648e79214434",
   "ef14fe96-b7b1-4579-bf49-aee56b565ba1",
-  "eafcf654-a831-4e1d-b284-b26f5b8c08aa"
+  "eafcf654-a831-4e1d-b284-b26f5b8c08aa",
 ];
 
 /* ------------------------------------------------------------- */
@@ -84,9 +84,9 @@ function formatURL(typeArtInfo) {
 /* ------------------------------------------------------------- */
 /* Put the query together */
 function formatQueryParams(params) {
-  const queryItems = Object.keys(params)
-    .map((key) =>
-    `${(encodeURIComponent(key))}=${(encodeURIComponent(params[key]))}`);
+  const queryItems = Object.keys(params).map(
+    (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+  );
   return queryItems.join("&");
 }
 
@@ -94,7 +94,7 @@ function formatQueryParams(params) {
 /* Display all artwork for the random artist */
 function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
   /* Append artwork info for the artist, whether or not the url is working */
-  if (typeof(artworkData) != "object") {
+  if (typeof artworkData != "object") {
     if (artworkData === "error") {
       $("#results-list").append(
         `
@@ -112,10 +112,8 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
     try {
       let flag_display = 0;
       try {
-        const check_val =
-          artworkData.data.attributes.luce_center_label.value;
-      }
-      catch(error_luce) {
+        const check_val = artworkData.data.attributes.luce_center_label.value;
+      } catch (error_luce) {
         flag_display++;
       }
 
@@ -177,8 +175,7 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
           `
         );
       }
-    }
-    catch(error_artwork) {
+    } catch (error_artwork) {
       console.log("Cannot append artwork data: " + error_artwork);
     }
   }
@@ -189,7 +186,6 @@ function displayArtworkResults(artworkData, artworkNum, artworkTotal) {
 /* ------------------------------------------------------------- */
 /* Display info about the artist */
 function displayArtistResults(responseJson, imgData) {
-
   /* Store responseJson info in array */
   const values = Object.values(responseJson);
 
@@ -254,9 +250,8 @@ function displayArtistResults(responseJson, imgData) {
         <p><b>ASSOCIATED PLACES:</b> ${places_str}</p>
       </li>
       `
-      );
-  }
-  catch(error_details) {
+    );
+  } catch (error_details) {
     /* Do not need to print this error, since this info not always available */
     /*console.log("Cannot append artist biography data: " + error_details);*/
   }
@@ -264,26 +259,22 @@ function displayArtistResults(responseJson, imgData) {
   /* Also append biography if it's available */
   try {
     $("#results-list").append(
-    `<li>
-      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes
-        .artist_biography.value}</p>
+      `<li>
+      <p><b>BIOGRAPHY:</b> ${responseJson.data.attributes.artist_biography.value}</p>
     </li>`
     );
-  }
-  catch(error_bio) {
+  } catch (error_bio) {
     /* Do not need to print this error, since this info not always available */
     /*console.log("Cannot append artist biography data: " + error_bio);*/
   }
 
   try {
     $("#results-list").append(
-    `<li>
-      <p><b>ARTIST BACKGROUND:</b> ${responseJson.data.attributes
-        .luce_artist_biography.value}</p>
+      `<li>
+      <p><b>ARTIST BACKGROUND:</b> ${responseJson.data.attributes.luce_artist_biography.value}</p>
     </li>`
     );
-  }
-  catch(error_background) {
+  } catch (error_background) {
     /* Do not need to print this error, since this info not always available */
     /*console.log("Cannot append luce artist biography data: " + error_background);*/
   }
@@ -309,19 +300,19 @@ function getArtworkInfo(artwork_arr) {
   /* Print all artwork info for this artist */
   for (let i = 0; i < artwork_arr.length; i++) {
     const id = artwork_arr[i].id;
-    const artwork_url = searchURL + "/" + id + "?" + queryString ;
+    const artwork_url = searchURL + "/" + id + "?" + queryString;
     fetch(artwork_url)
-      .then(res => res.json())
-      .then(artworkData => {
-        displayArtworkResults(artworkData, `${i+1}`, `${artwork_arr.length}`);
-    })
-    .catch(err => {
-      displayArtworkResults("error", `${i+1}`, `${artwork_arr.length}`);
-      error_count++;
-    });
+      .then((res) => res.json())
+      .then((artworkData) => {
+        displayArtworkResults(artworkData, `${i + 1}`, `${artwork_arr.length}`);
+      })
+      .catch((err) => {
+        displayArtworkResults("error", `${i + 1}`, `${artwork_arr.length}`);
+        error_count++;
+      });
 
     $("#js-wait-message").show();
-    $("#js-wait-message").text(`${i+1} of ${artwork_arr.length}
+    $("#js-wait-message").text(`${i + 1} of ${artwork_arr.length}
       artworks successfully retrieved`);
   }
 }
@@ -345,25 +336,25 @@ function getArtistInfo() {
 
   /* Fetch the artist url and capture the response */
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => {
-      const url1 = responseJson.data.relationships.default_image.links.
-        related.href;
+    .then((responseJson) => {
+      const url1 =
+        responseJson.data.relationships.default_image.links.related.href;
       const default_image_url = url1 + "&api_key=" + apiKey;
       fetch(default_image_url)
-      .then(res => res.json())
-      .then(imgData => {
-        displayArtistResults(responseJson, imgData);
-        const artwork_arr = responseJson.data.relationships.artworks.data;
-        getArtworkInfo(artwork_arr);
-      })
+        .then((res) => res.json())
+        .then((imgData) => {
+          displayArtistResults(responseJson, imgData);
+          const artwork_arr = responseJson.data.relationships.artworks.data;
+          getArtworkInfo(artwork_arr);
+        });
     })
-    .catch(err => {
+    .catch((err) => {
       $("#js-error-message").show();
       $("#js-error-message").text(`Could not retrieve artist information:
         ${err.message}`);
@@ -394,4 +385,3 @@ function watchForm() {
 }
 
 $(watchForm);
-
